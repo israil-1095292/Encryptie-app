@@ -30,3 +30,28 @@ def encrypt(plaintext: str, password: str) -> str:
     ciphertext = encryptor.update(plaintext.encode()) + encryptor.finalize()
     encrypted_data = salt + iv + ciphertext
     return base64.b64encode(encrypted_data).decode()
+
+def main():
+    print("Symmetrische Encryptie CLI-app (AES-256)")
+    choice = input("Typ 'e' om te versleutelen of 'd' om te ontsleutelen: ").lower()
+
+    if choice == 'e':
+        text = input("Voer de tekst in die je wilt versleutelen: ")
+        password = input("Voer een wachtwoord in: ")
+        encrypted = encrypt(text, password)
+        print("\nVersleutelde tekst:")
+        print(encrypted)
+
+    elif choice == 'd':
+        encrypted_text = input("Voer de versleutelde tekst in: ")
+        password = input("Voer het wachtwoord in: ")
+        try:
+            decrypted = decrypt(encrypted_text, password)
+            print("\nOntsleutelde tekst:")
+            print(decrypted)
+        except Exception:
+            print("Fout bij ontsleutelen. Controleer je wachtwoord en de tekst.")
+
+    else:
+        print("Ongeldige keuze. Sluiten...")
+
