@@ -31,6 +31,17 @@ def encrypt(plaintext: str, password: str) -> str:
     encrypted_data = salt + iv + ciphertext
     return base64.b64encode(encrypted_data).decode()
 
+def decrypt(encrypted_data_b64: str, password: str) -> str:
+    encrypted_data = base64.b64decode(encrypted_data_b64.encode())
+    salt = encrypted_data[:16]
+    iv = encrypted_data[16:32]
+    ciphertext = encrypted_data[32:]
+    key = derive_key(password, salt)
+    cipher = Cipher(algorithms.AES(key), modes.CFB(iv), backend=backend)
+    decryptor = cipher.decryptor()
+    plaintext = decryptor.update(ciphertext) + decryptor.finalize()
+    return plaintext.decode()
+
 def main():
     print("Symmetrische Encryptie CLI-app (AES-256)")
     choice = input("Typ 'e' om te versleutelen of 'd' om te ontsleutelen: ").lower()
