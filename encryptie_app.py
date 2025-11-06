@@ -43,7 +43,7 @@ def decrypt(encrypted_data_b64: str, password: str) -> str:
     return plaintext.decode()
 
 def main():
-    print("Symmetrische Encryptie CLI-app (AES-256)")
+    print("ENCRYPTIE APP")
     choice = input("Typ 'e' om te versleutelen of 'd' om te ontsleutelen: ").lower()
 
     if choice == 'e':
