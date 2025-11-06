@@ -55,3 +55,5 @@ def main():
     else:
         print("Ongeldige keuze. Sluiten...")
 
+if __name__ == "__main__":
+    main()
